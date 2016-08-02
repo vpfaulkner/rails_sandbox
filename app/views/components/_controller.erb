@@ -1,0 +1,70 @@
+<%= render layout: 'layouts/ruby_class', object: component do %>
+<% if resource.load_actions.present? %>
+before_action :set_<%= resource.name %>, only: <%= resource.load_actions %>
+
+<% end %>
+<% if resource.actions.include?(:index) %>
+def index
+  @<%= resource.name %> = <%= resource.name.classify %>.all
+end
+
+<% end %>
+<% if resource.actions.include?(:show) %>
+def show
+end
+
+<% end %>
+<% if resource.actions.include?(:new) %>
+def new
+  @<%= resource.name %> = <%= resource.name.classify %>.new
+end
+
+<% end %>
+<% if resource.actions.include?(:edit) %>
+def edit
+end
+
+<% end %>
+<% if resource.actions.include?(:create) %>
+def create
+  @<%= resource.name %> = <%= resource.name.classify %>.new(<%= resource.name %>_params)
+
+  if @<%= resource.name %>.save
+    redirect_to @<%= resource.name %>, notice: '<%= resource.name %> was successfully created.'
+  else
+    render :new
+  end
+end
+
+<% end %>
+<% if resource.actions.include?(:update) %>
+def update
+  if @<%= resource.name %>.update(<%= resource.name %>_params)
+    redirect_to @<%= resource.name %>, notice: '<%= resource.name %> was successfully updated.'
+  else
+    render :edit
+  end
+end
+
+<% end %>
+<% if resource.actions.include?(:destroy) %>
+def destroy
+  @<%= resource.name %>.destroy
+  redirect_to <%= resource.name.pluralize %>_url, notice: '<%= resource.name %> was successfully destroyed.'
+end
+
+<% end %>
+private
+<% if resource.load_actions.present? %>
+
+def set_<%= resource.name %>
+  @<%= resource.name %> = <%= resource.name.classify %>.find(params[:id])
+end
+<% end %>
+<% if resource.actions.include?(:create) || resource.actions.include?(:update) %>
+
+def <%= resource.name %>_params
+  params.require(:<%= resource.name %>).permit(<%= resource.attributes.keys.map(&:to_sym).to_s[1..-2] %>)
+end
+<% end %>
+<% end %>

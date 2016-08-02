@@ -1,0 +1,9 @@
+<% if ruby_class.module_name %>
+module <%= ruby_class.module_name %>
+  class <%= ruby_class.class_name %><%= " < #{ruby_class.parent_class_name}" if ruby_class.parent_class_name %><%= yield.try(:indent, 4).chomp %>
+  end
+end
+<% else %>
+  class <%= ruby_class.class_name %><%= " < #{ruby_class.parent_class_name}" if ruby_class.parent_class_name %><%= yield.try(:indent, 2).chomp %>
+  end
+<% end %>

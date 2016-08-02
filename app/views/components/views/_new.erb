@@ -1,0 +1,7 @@
+<%= render layout: 'layouts/html_code', object: component do %>
+<h1>New <%= resource.name.classify %></h1>
+
+<<%= '%' %>= render 'form', <%= resource.name %>: @<%= resource.name %> %>
+
+<<%= '%' %>= link_to 'Back', <%= resource.name.pluralize %>_path %>
+<% end %>

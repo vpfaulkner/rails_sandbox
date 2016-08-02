@@ -1,0 +1,37 @@
+<%= render layout: 'layouts/html_code', object: component do %>
+<h1><%= resource.name.titleize.pluralize %></h1>
+
+<table>
+  <thead>
+    <tr>
+<% resource.attributes.each do |a, t| %>
+      <th><%= a.to_s.titleize %></th>
+<% end %>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <<%= '%' %> @<%= resource.name.pluralize %>.each do |<%= resource.name %>| %>
+      <tr>
+<% resource.attributes.each do |a, t| %>
+        <td><<%= '%' %>= <%= resource.name %>.<%= a.to_s.underscore %> %></td>
+<% end %>
+<% if resource.actions.include?(:show) %>
+        <td><<%= '%' %>= link_to 'Show', <%= resource.name %> %></td>
+<% end %>
+<% if resource.actions.include?(:edit) %>
+        <td><<%= '%' %>= link_to 'Edit', edit_<%= resource.name %>_path(<%= resource.name %>) %></td>
+<% end %>
+<% if resource.actions.include?(:destroy) %>
+        <td><<%= '%' %>= link_to 'Destroy', <%= resource.name %>, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+<% end %>
+      </tr>
+    <<%= '%' %> end %>
+  </tbody>
+</table>
+
+<br>
+
+<<%= '%' %>= link_to 'New <%= resource.name.titleize %>', new_<%= resource.name %>_path %>
+<% end %>

@@ -1,0 +1,11 @@
+Rails.application.routes.draw do
+  <% identifier =  resource.singular ? "resource" : "resources" %>
+  <% resource_line = "#{identifier} :#{resource.name}" %>
+<% if resource.namespace.present? %>
+  namespace :<%= resource.namespace %> do
+    <%= resource_line %>
+  end
+<% else %>
+  <%= resource_line %>
+<% end %>
+end

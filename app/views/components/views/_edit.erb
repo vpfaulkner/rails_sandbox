@@ -1,0 +1,10 @@
+<%= render layout: 'layouts/html_code', object: component do %>
+<h1>Editing <%= resource.name.classify %></h1>
+
+<<%= '%' %>= render 'form', <%= resource.name %>: @<%= resource.name %> %>
+
+<% if resource.actions.include?(:show) %>
+<<%= '%' %>= link_to 'Show', @<%= resource.name %> %> |
+<% end %>
+<<%= '%' %>= link_to 'Back', <%= resource.name.pluralize %>_path %>
+<% end %>

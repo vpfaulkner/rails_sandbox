@@ -1,0 +1,13 @@
+<%= render layout: 'layouts/html_code', object: component do %>
+<% resource.attributes.each do |a, t| %>
+<p>
+  <strong><%= a.to_s.titleize %>:</strong>
+  <<%= '%' %>= @<%= resource.name %>.<%= a.to_s.underscore %> %>
+</p>
+<% end %>
+
+<% if resource.actions.include? :edit %>
+<<%= '%' %>= link_to 'Edit', edit_<%= resource.name %>_path(@<%= resource.name %>) %> |
+<% end %>
+<<%= '%' %>= link_to 'Back', <%= resource.name.pluralize %>_path %>
+<% end %>
