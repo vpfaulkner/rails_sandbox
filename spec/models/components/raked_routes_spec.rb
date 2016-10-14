@@ -1,5 +1,5 @@
 require 'rails_helper'
-require_relative 'base_spec.rb'
+require_relative 'base.rb'
 
 describe Components::RakedRoutes, type: :model do
   include_context 'resource'

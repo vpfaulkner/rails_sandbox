@@ -1,6 +1,6 @@
 require 'rails_helper'
-require_relative '../base_spec.rb'
-require_relative 'base_spec.rb'
+require_relative '../base.rb'
+require_relative 'base.rb'
 
 describe Components::Views::Edit, type: :model do
   include_context 'resource'

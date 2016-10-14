@@ -1,6 +1,6 @@
 require 'rails_helper'
-require_relative 'base_spec.rb'
-require_relative 'ruby_spec.rb'
+require_relative 'base.rb'
+require_relative 'ruby.rb'
 
 describe Components::Controller, type: :model do
   include_context 'resource'
