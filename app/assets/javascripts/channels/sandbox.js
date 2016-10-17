@@ -78,8 +78,7 @@ function add_attribute_popup() {
     .popup({
       inline     : true,
       position   : 'bottom left',
-      on         : 'click',
-      debug      : true,
+      on         : 'click'
     });
 };
 
