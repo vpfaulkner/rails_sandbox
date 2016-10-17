@@ -2,7 +2,7 @@
 <<%= '%' %>= form_for(<%= resource.name %>) do |f| %>
   <<%= '%' %> if <%= resource.name %>.errors.any? %>
     <div id="error_explanation">
-      <h2><<%= '%' %>= pluralize(<%= resource.name %>.errors.count, "error") %> prohibited this post from being saved:</h2>
+    <h2><<%= '%' %>= pluralize(<%= resource.name %>.errors.count, "error") %> prohibited this <%= resource.name %> from being saved:</h2>
 
       <ul>
       <<%= '%' %> <%= resource.name %>.errors.full_messages.each do |message| %>
