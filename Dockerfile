@@ -1,5 +1,5 @@
 FROM ruby:2.3.1
-MAINTAINER vpfaulkner@gmail.com
+MAINTAINER Vance Faulkner | vpfaulkner@gmail.com
 
 # Install essentials
 RUN apt-get update -qq && apt-get install -y build-essential
@@ -28,7 +28,6 @@ ADD . $APP_HOME
 # Precompile Rails assets
 RUN bundle exec rake assets:precompile
 
-# Run app
-EXPOSE 3000
-ENTRYPOINT ["bundle", "exec"]
-CMD ["rails", "server", "-p", "3000", "-b", "0.0.0.0", "-e", "production"]
+# Setup a volume so that nginx can read in the assets from
+# the Rails Docker image without having to copy them to the Docker host.
+VOLUME ["$APP_HOME/public"]
