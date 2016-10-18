@@ -1,11 +1,11 @@
 version: '2'
 
 services:
-  web:
+  app:
     build: .
     command: bin/rails server --port 3000 --binding 0.0.0.0
-    ports:
-      - "3000:3000"
+    expose:
+      - "3000"
     volumes:
       - '.:/rails_sandbox'
     env_file:
@@ -19,5 +19,16 @@ services:
     volumes:
       - 'redis:/var/lib/redis/data'
 
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - 'app'
+    volumes_from:
+      - app:ro
 volumes:
     redis:
+    app:
