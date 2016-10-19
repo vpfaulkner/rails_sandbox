@@ -38,9 +38,9 @@ Rails.application.configure do
   # config.action_cable.mount_path = nil
   # config.action_cable.url = 'wss://example.com/cable'
 
-    # Action Cable setting to allow connections from these domains.
-    origins = ENV['ACTION_CABLE_ALLOWED_REQUEST_ORIGINS'].split(',')
-    config.action_cable.allowed_request_origins = origins.map { |url| /#{url}/ }
+  # Action Cable setting to allow connections from these domains.
+  origins = ENV['ACTION_CABLE_ALLOWED_REQUEST_ORIGINS'].split(',')
+  config.action_cable.allowed_request_origins = origins.map { |url| /#{url}/ }
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true

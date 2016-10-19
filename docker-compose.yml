@@ -28,7 +28,7 @@ services:
     depends_on:
       - 'app'
     volumes_from:
-      - app:ro
+      - app
 volumes:
     redis:
     app:

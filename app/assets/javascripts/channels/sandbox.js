@@ -101,7 +101,7 @@ function listen_for_new_attributes() {
     var last_row = $(".attribute-row").last();
     var new_row = last_row.clone();
 
-    // Reset
+    // Reset new row
     new_row.find('input').val('');
     new_row.find('div.fluid.dropdown').dropdown();
 
