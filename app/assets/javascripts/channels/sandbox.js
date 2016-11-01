@@ -2,7 +2,10 @@ App.sandbox = App.cable.subscriptions.create("SandboxChannel", {
   connected: function() {
     updateResource();
   },
-  disconnected: function() {},
+  update: function(data) {
+    $( "div.error.label ").remove(); // Clear labels
+    this.perform('update', data);
+  },
   received: function(data) {
     if (data['output']) {
       for (var type in data['output']) {
@@ -16,11 +19,12 @@ App.sandbox = App.cable.subscriptions.create("SandboxChannel", {
     }
     highlight_code();
   },
-  update: function(data) {
-    $( "div.error.label ").remove(); // Clear labels
-    this.perform('update', data);
-  }
+  disconnected: function() {},
 });
+
+function getActiveTab() {
+  return $("a.active.item").first().attr('data-tab');
+}
 
 function getName() {
   return $("[name='name']").val();
@@ -68,7 +72,8 @@ function updateResource() {
        "singular":   getSingular(),
        "crud":       getCrud(),
        "attributes": getAttributes()
-    }
+    },
+    "active_type": getActiveTab()
   };
   App.sandbox.update(data);
 };
