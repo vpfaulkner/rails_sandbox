@@ -11,4 +11,8 @@ module SandboxesHelper
     else 'text_field'
     end
   end
+
+  def initial_controller_html
+    render partial: 'initial_controller'
+  end
 end
