@@ -9,16 +9,16 @@ class CodeSnippets extends React.Component {
           <a className="item code-tab" data-tab="routes">Routes</a>
         </div>
         <div className="ui bottom attached tab segment active" data-tab="controller">
-          <div id="controller" className="ui grid"></div>
+          <div id="controller" className="ui grid">{this.props.controller}</div>
         </div>
         <div className="ui bottom attached tab segment" data-tab="model">
-          <div id="model" className="ui grid"></div>
+          <div id="model" className="ui grid">{this.props.model}</div>
         </div>
         <div className="ui bottom attached tab segment" data-tab="views">
-          <div id="views" className="ui grid"></div>
+          <div id="views" className="ui grid">{this.props.views}</div>
         </div>
         <div className="ui bottom attached tab segment" data-tab="routes">
-          <div id="routes" className="ui grid"></div>
+          <div id="routes" className="ui grid">{this.props.routes}</div>
         </div>
       </div>
     );

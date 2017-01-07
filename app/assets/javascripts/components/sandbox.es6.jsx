@@ -19,6 +19,19 @@ class Sandbox extends React.Component {
       attributes: attributes,
       singular: singular,
     });
+
+    // SEND PROPS TO WEBSOCKET
+    var data = {
+      "input": {
+        "name":       getName(),
+        "namespace":  getNamespace(),
+        "singular":   getSingular(),
+        "crud":       getCrud(),
+        "attributes": getAttributes()
+      },
+      "active_type": getActiveTab()
+    };
+    App.sandbox.update(data);
   }
 
   render() {
