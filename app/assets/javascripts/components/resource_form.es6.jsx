@@ -1,4 +1,17 @@
-var ResourceForm = React.createClass({
+class ResourceForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange() {
+    this.props.onNewInput(
+      this.nameInput.value,
+      this.namespaceInput.value,
+      this.singularInput.checked
+    );
+  }
+
   render() {
     return (
       <div className="sixteen wide column">
@@ -7,11 +20,25 @@ var ResourceForm = React.createClass({
           <div className="fields">
             <div className="two wide field name">
               <label>Name</label>
-              <input className="form-field" type="text" name="name" value="User" placeholder="User"/>
+              <input
+                className="form-field"
+                type="text"
+                name="name"
+                value={this.props.name}
+                ref={(input) => this.nameInput = input}
+                onChange={this.handleChange}
+              />
             </div>
             <div className="two wide field namespace">
               <label>Namespace</label>
-              <input className="form-field" type="text" name="namespace" value="Admin"/>
+              <input
+                className="form-field"
+                type="text"
+                name="namespace"
+                value={this.props.namespace}
+                ref={(input) => this.namespaceInput = input}
+                onChange={this.handleChange}
+              />
             </div>
             <div className="six wide field crud">
               <label>CRUD</label>
@@ -115,7 +142,14 @@ var ResourceForm = React.createClass({
             <div className="one wide field singular">
               <label>Singular?</label>
               <div className="ui toggle checkbox checkbox-container">
-                <input className="singular-checkbox form-field" type="checkbox" name="singular"/>
+                <input
+                  className="singular-checkbox form-field"
+                  type="checkbox"
+                  name="singular"
+                  checked={this.props.singular}
+                  ref={(input) => this.singularInput = input}
+                  onChange={this.handleChange}
+                />
                 <label></label>
               </div>
             </div>
@@ -123,5 +157,5 @@ var ResourceForm = React.createClass({
         </form>
       </div>
     );
-  },
-});
+  }
+};

@@ -1,4 +1,4 @@
-var PageHeader = React.createClass({
+class PageHeader extends React.Component {
   render() {
     return (
       <div className="sixteen wide column">
@@ -6,5 +6,5 @@ var PageHeader = React.createClass({
         <p>Because conventions are hard to remember...</p>
       </div>
     );
-  },
-});
+  }
+};

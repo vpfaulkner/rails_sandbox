@@ -1,4 +1,4 @@
-var CodeSnippets = React.createClass({
+class CodeSnippets extends React.Component {
   render() {
     return (
       <div className="thirteen wide column">
@@ -22,5 +22,5 @@ var CodeSnippets = React.createClass({
         </div>
       </div>
     );
-  },
-});
+  }
+};
