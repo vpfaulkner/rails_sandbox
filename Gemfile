@@ -10,6 +10,7 @@ gem 'coffee-rails', '~> 4.2'
 
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
+gem 'react-rails'
 gem 'redis', '~> 3.0'
 gem 'rollbar'
 gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'
