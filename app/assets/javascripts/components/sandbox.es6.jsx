@@ -1,17 +1,39 @@
 class Sandbox extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       name: 'User',
       namespace: 'Admin',
       crud: ['create', 'read', 'update', 'delete'],
       attributes: { name: 'string', email: 'string' },
-      singular: false
+      singular: false,
+      // active_tab: 'controller'
     };
-    this.handleNewInput = this.handleNewInput.bind(this);
+    this.onResourceUpdate = this.onResourceUpdate.bind(this);
+    this.onNewCode = this.onNewCode.bind(this);
   }
 
-  handleNewInput(name, namespace, crud, attributes, singular) {
+  onNewCode(model, controller, views, routes) {
+    this.setState({
+      model: model,
+      controller: controller,
+      views: views,
+      routes: routes,
+    });
+    highlight_code();
+  }
+
+  onResourceUpdate(name, namespace, crud, attributes, singular) {
+    App.sandbox.update({
+      "input": {
+        "name":       name,
+        "namespace":  namespace,
+        "singular":   singular,
+        "crud":       crud,
+        "attributes": attributes,
+      },
+      // "active_type": active_type
+    });
     this.setState({
       name: name,
       namespace: namespace,
@@ -19,19 +41,27 @@ class Sandbox extends React.Component {
       attributes: attributes,
       singular: singular,
     });
+  }
 
-    // SEND PROPS TO WEBSOCKET
-    var data = {
-      "input": {
-        "name":       getName(),
-        "namespace":  getNamespace(),
-        "singular":   getSingular(),
-        "crud":       getCrud(),
-        "attributes": getAttributes()
+  componentDidMount() {
+    App.sandbox = App.cable.subscriptions.create("SandboxChannel", {
+      connected: function() {
       },
-      "active_type": getActiveTab()
-    };
-    App.sandbox.update(data);
+      update: function(data) {
+        // $( "div.error.label ").remove(); // Clear labels
+        this.perform('update', data);
+      },
+      received: function(data) {
+        this.onNewCode(
+          data['output']['model'],
+          data['output']['controller'],
+          data['output']['views'],
+          data['output']['routes'],
+        )
+      },
+      disconnected: function() {},
+      onNewCode: this.onNewCode
+    });
   }
 
   render() {
@@ -42,7 +72,7 @@ class Sandbox extends React.Component {
         </div>
         <div className="row">
           <ResourceForm
-            onNewInput={this.handleNewInput}
+            onResourceUpdate={this.onResourceUpdate}
             name={this.state.name}
             namespace={this.state.namespace}
             crud={this.state.crud}
@@ -52,11 +82,10 @@ class Sandbox extends React.Component {
         </div>
         <div className="row">
           <CodeSnippets
-            name={this.state.name}
-            namespace={this.state.namespace}
-            crud={this.state.crud}
-            attributes={this.state.attributes}
-            singular={this.state.singular}
+            model={this.state.model}
+            controller={this.state.controller}
+            views={this.state.views}
+            routes={this.state.routes}
           />
         </div>
       </div>

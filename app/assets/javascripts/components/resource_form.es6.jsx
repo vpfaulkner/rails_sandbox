@@ -1,16 +1,42 @@
 class ResourceForm extends React.Component {
   constructor(props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleResourceUpdate = this.handleResourceUpdate.bind(this);
   }
 
-  handleChange() {
-    this.props.onNewInput(
+  handleResourceUpdate() {
+    this.props.onResourceUpdate(
       this.nameInput.value,
       this.namespaceInput.value,
-      this.singularInput.checked
+      ['create', 'read', 'update', 'delete'],
+      { name: 'string' },
+      this.singularInput.checked,
     );
   }
+
+  // getCrud() {
+  //   debugger;
+  //   var crud = [];
+  //   $("option.crud").each(function() {
+  //     if (this.selected) {
+  //       crud.push(this.value);
+  //     };
+  //   });
+  //   return crud;
+  // }
+  //
+  // getAttributes() {
+  //   debugger;
+  //   var attributes = {};
+  //   $("div.attribute-row").each(function() {
+  //     var name = $(this).find($("[name='attribute-name']")).val();
+  //     var type = $(this).find($("select")).val();
+  //     if (name != "") {
+  //       attributes[name] = type;
+  //     };
+  //   });
+  //   return attributes;
+  // };
 
   render() {
     return (
@@ -26,7 +52,7 @@ class ResourceForm extends React.Component {
                 name="name"
                 value={this.props.name}
                 ref={(input) => this.nameInput = input}
-                onChange={this.handleChange}
+                onChange={this.handleResourceUpdate}
               />
             </div>
             <div className="two wide field namespace">
@@ -37,7 +63,7 @@ class ResourceForm extends React.Component {
                 name="namespace"
                 value={this.props.namespace}
                 ref={(input) => this.namespaceInput = input}
-                onChange={this.handleChange}
+                onChange={this.handleResourceUpdate}
               />
             </div>
             <div className="six wide field crud">
@@ -64,34 +90,7 @@ class ResourceForm extends React.Component {
                       <input className="form-field attribute" type="text" name="attribute-name" placeholder="Attribute" value="Name"/>
                     </div>
                     <div className="six wide column field">
-                      <div className="ui fluid dropdown form-field disabled-attribute selection disabled" tabindex="0">
-                        <select name="type" id="type" disabled="disabled">
-                          <option value="">Select type</option><option value="string">string</option>
-                          <option value="text">text</option>
-                          <option value="binary">binary</option>
-                          <option value="integer">integer</option>
-                          <option value="date">date</option>
-                          <option value="datetime">datetime</option>
-                          <option value="boolean">boolean</option>
-                          <option value="decimal">decimal</option>
-                          <option value="float">float</option>
-                          <option value="time">time</option>
-                          <option value="primary_key">primary_key</option>
-                          <option value="references">references</option>
-                          <option value="timestamp">timestamp</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="row attribute-row">
-                    <div className="two wide column">
-                      <i className="attribute-icon delete icon"></i>
-                    </div>
-                    <div className="seven wide column field">
-                      <input className="form-field attribute" name="attribute-name" type="text" placeholder="Attribute" value="Email"/>
-                    </div>
-                    <div className="six wide column field">
-                      <div className="ui fluid dropdown form-field disabled-attribute selection disabled" tabindex="0">
+                      <div className="ui fluid dropdown form-field disabled-attribute selection disabled">
                         <select name="type" id="type" disabled="disabled">
                           <option value="">Select type</option><option value="string">string</option>
                           <option value="text">text</option>
@@ -117,7 +116,7 @@ class ResourceForm extends React.Component {
                       <input type="text" placeholder="Add Attribute" disabled="" className="disabled-attribute"/>
                     </div>
                     <div className="six wide column field">
-                      <div className="ui fluid dropdown form-field disabled-attribute selection disabled" tabindex="0">
+                      <div className="ui fluid dropdown form-field disabled-attribute selection disabled">
                         <select name="type" id="type" disabled="disabled">
                           <option value="">Select type</option><option value="string">string</option>
                           <option value="text">text</option>
@@ -148,7 +147,7 @@ class ResourceForm extends React.Component {
                   name="singular"
                   checked={this.props.singular}
                   ref={(input) => this.singularInput = input}
-                  onChange={this.handleChange}
+                  onChange={this.handleResourceUpdate}
                 />
                 <label></label>
               </div>
